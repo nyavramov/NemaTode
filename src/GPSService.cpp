@@ -25,7 +25,19 @@ using namespace nmea;
 double convertLatLongToDeg(string llstr, string dir){
 
 	double pd = parseDouble(llstr);
-	double deg = trunc(pd / 100);				//get ddd from dddmm.mmmm
+	double deg;
+#if defined(__CODEGEARC__)
+//We try to mimic behavior of trunc(), which is not available for C++ Builder
+//by using ceil() when pd is negative, and round when pd is positive
+//See: http://www.cplusplus.com/reference/cmath/round/
+	if (pd < 0) {
+		deg = ceil(pd / 100);
+	} else {
+		deg = round(pd / 100);
+	}
+#else
+	deg = trunc(pd / 100); //get ddd from dddmm.mmmm
+#endif
 	double mins = pd - deg * 100;
 
 	deg = deg + mins / 60.0;
