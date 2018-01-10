@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{69EB7219-0D2C-4EAE-9CC6-E1D4EB279CA7}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="nematode_static.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="demo_simple.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="demo_advanced.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="nematode_static">
+        <MSBuild Projects="nematode_static.cbproj"/>
+    </Target>
+    <Target Name="nematode_static:Clean">
+        <MSBuild Projects="nematode_static.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="nematode_static:Make">
+        <MSBuild Projects="nematode_static.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_simple">
+        <MSBuild Projects="demo_simple.cbproj"/>
+    </Target>
+    <Target Name="demo_simple:Clean">
+        <MSBuild Projects="demo_simple.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_simple:Make">
+        <MSBuild Projects="demo_simple.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="demo_advanced">
+        <MSBuild Projects="demo_advanced.cbproj"/>
+    </Target>
+    <Target Name="demo_advanced:Clean">
+        <MSBuild Projects="demo_advanced.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="demo_advanced:Make">
+        <MSBuild Projects="demo_advanced.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="nematode_static;demo_simple;demo_advanced"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="nematode_static:Clean;demo_simple:Clean;demo_advanced:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="nematode_static:Make;demo_simple:Make;demo_advanced:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
