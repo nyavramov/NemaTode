@@ -179,14 +179,14 @@ void GPSTimestamp::setTime(double raw_ts){
 	rawTime = raw_ts;
 #if defined(__CODEGEARC__)
 //We try to mimic behavior of trunc(), which is not available for C++ Builder
-//by using ceil() when raw_ts is negative, and round when raw_ts is positive
+//by using ceil() when raw_ts is negative, and floor() when raw_ts is positive
 //See: http://www.cplusplus.com/reference/cmath/round/
 	if (raw_ts < 0) {
 		hour = (int32_t)ceil(raw_ts / 10000.0);
 		min = (int32_t)ceil((raw_ts - hour * 10000) / 100.0);
 	} else {
-        hour = (int32_t)round(raw_ts / 10000.0);
-		min = (int32_t)round((raw_ts - hour * 10000) / 100.0);
+		hour = (int32_t)floor(raw_ts / 10000.0);
+		min = (int32_t)floor((raw_ts - hour * 10000) / 100.0);
 	}
 #else
 	hour = (int32_t)trunc(raw_ts / 10000.0);
@@ -210,8 +210,8 @@ void GPSTimestamp::setDate(int32_t raw_date){
 			day = (int32_t)ceil(raw_date / 10000.0);
 			month = (int32_t)ceil((raw_date - 10000 * day) / 100.0);
 		} else {
-            day = (int32_t)round(raw_date / 10000.0);
-			month = (int32_t)round((raw_date - 10000 * day) / 100.0);
+			day = (int32_t)floor(raw_date / 10000.0);
+			month = (int32_t)floor((raw_date - 10000 * day) / 100.0);
         }
 #else
 		day = (int32_t)trunc(raw_date / 10000.0);

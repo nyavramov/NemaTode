@@ -28,12 +28,12 @@ double convertLatLongToDeg(string llstr, string dir){
 	double deg;
 #if defined(__CODEGEARC__)
 //We try to mimic behavior of trunc(), which is not available for C++ Builder
-//by using ceil() when pd is negative, and round when pd is positive
+//by using ceil() when pd is negative, and floor when pd is positive
 //See: http://www.cplusplus.com/reference/cmath/round/
 	if (pd < 0) {
 		deg = ceil(pd / 100);
 	} else {
-		deg = round(pd / 100);
+		deg = floor(pd / 100);
 	}
 #else
 	deg = trunc(pd / 100); //get ddd from dddmm.mmmm
